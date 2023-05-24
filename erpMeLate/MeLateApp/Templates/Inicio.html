@@ -74,8 +74,8 @@
                         </div>
                         <div class="col-8">
                         <div class="card-body">
-                            <h5 class="card-title text-center">5</h5>
-                            <p class="card-text text-center">Categorías</p>
+                            <h5 class="card-title text-center">{{cantidadproveedores}}</h5>
+                            <p class="card-text text-center">proveedores</p>
                         </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-8">
                         <div class="card-body">
-                            <h5 class="card-title text-center">12</h5>
+                            <h5 class="card-title text-center">{{cantidadproductos}}</h5>
                             <p class="card-text text-center">Productos</p>
                         </div>
                         </div>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-8">
                         <div class="card-body">
-                            <h5 class="card-title text-center">4</h5>
+                            <h5 class="card-title text-center">{{cantidadventas}}</h5>
                             <p class="card-text text-center">Ventas</p>
                         </div>
                         </div>
@@ -116,28 +116,25 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Correo</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{proveedor1.nombre}}</td>
+                            <td>{{proveedor1.correo}}</td>
                           </tr>
                           <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td>{{proveedor2.nombre}}</td>
+                            <td>{{proveedor2.correo}}</td>
                           </tr>
                           <tr>
                             <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
+                            <td>{{proveedor3.nombre}}</td>
+                            <td>{{proveedor3.correo}}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -147,28 +144,29 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Stock</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{producto1.nombre}}</td>
+                            <td>{{producto1.categoria}}</td>
+                            <td>{{producto1.stock}}</td>
                           </tr>
                           <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td>{{producto2.nombre}}</td>
+                            <td>{{producto2.categoria}}</td>
+                            <td>{{producto2.stock}}</td>
                           </tr>
                           <tr>
                             <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
+                            <td>{{producto3.nombre}}</td>
+                            <td>{{producto3.categoria}}</td>
+                            <td>{{producto3.stock}}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -178,28 +176,29 @@
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Productos</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{venta1.productos}}</td>
+                            <td>{{venta1.cantidad}}</td>
+                            <td>{{venta1.total}}</td>
                           </tr>
                           <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td>{{venta2.productos}}</td>
+                            <td>{{venta2.cantidad}}</td>
+                            <td>{{venta2.total}}</td>
                           </tr>
                           <tr>
                             <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
+                            <td>{{venta3.productos}}</td>
+                            <td>{{venta3.cantidad}}</td>
+                            <td>{{venta3.total}}</td>
                           </tr>
                         </tbody>
                       </table>

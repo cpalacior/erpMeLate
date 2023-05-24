@@ -3,14 +3,27 @@ from django.http import HttpResponse
 from .models import Ventas, Productos, Insumos, Proveedores, Admin
 
 # Create your views here.
-def inicioDeSesion(request):
-    return render(request, 'ingreso.html')
-
-def inicioMensaje(request, mensaje):
-    return render(request, 'ingreso.html', {"mensaje": mensaje})
 
 def inicio(request):
-    return render(request, 'Inicio.html')
+    productos = Productos.objects.all()
+    cantproductos = len(productos)
+    productos = productos[:3]
+    listaproductos = []
+    listaventas = []
+    listaproveedores = []
+    for producto in productos:
+        listaproductos.append(producto)
+    ventas = Ventas.objects.all()
+    cantventas = len(ventas)
+    ventas = ventas[:3]
+    for venta in ventas:
+        listaventas.append(venta)
+    proveedores = Proveedores.objects.all()
+    cantproveedores = len(proveedores)
+    proveedores = proveedores[:3]
+    for proveedor in proveedores:
+        listaproveedores.append(proveedor)
+    return render(request, 'Inicio.html', {"producto1":listaproductos[0], "producto2":listaproductos[1], "producto3":listaproductos[2], "venta1": listaventas[0], "venta2": listaventas[1], "venta3": listaventas[2],"proveedor1": listaproveedores[0], "proveedor2": listaproveedores[1], "proveedor3": listaproveedores[2],"cantidadproductos":cantproductos,"cantidadventas":cantventas, "cantidadproveedores": cantproveedores})
 
 def ventas(request):
     ventas = Ventas.objects.all()
@@ -300,6 +313,12 @@ def ingreso(request):
         except:
             return  redirect("/inicioMensaje/eautenticacion")
     return redirect("/")
+
+def inicioDeSesion(request):
+    return render(request, 'ingreso.html')
+
+def inicioMensaje(request, mensaje):
+    return render(request, 'ingreso.html', {"mensaje": mensaje})
 
 def registroMensaje(request, mensaje):
     return render(request, 'registro.html', {"mensaje": mensaje})

@@ -121,7 +121,8 @@
                     </svg></a>
                 </td>
                 <td>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="/static/imagenes/email.png" alt="" width="45" height="45"></a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    onclick="return openmodal1('{{ proveedor.correo }}')"><img src="/static/imagenes/email.png" alt="" width="45" height="45"></a>
                     <a href="https://api.whatsapp.com/send/?phone=57{{proveedor.telefono}}&text=Saludos,%20desde%20MeLate%20Chocolate%20queremos%20realizar%20una%20nueva%20solicitud%20de%20cotizacion" ><img src="/static/imagenes/wasap.jpg" alt="" width="45" height="45"></a>
                 </td>
                 </tr>
@@ -141,15 +142,11 @@
                         {% csrf_token %}
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label">Correo:</label>
-                          <select id="categoriaproducto" class="form-select" name="correo" required>
-                            {% for proveedor in proveedores %}
-                            <option>{{proveedor.correo}}</option>
-                            {% endfor %}
-                        </select>
+                          <input type="text" name="correo" class="form-control" id="correomodal" required>
                         </div>
                         <div class="mb-3">
-                          <label for="message-text" class="col-form-label">Mensaje:</label>
-                          <input type="text" name="mensaje" class="form-control" required>
+                          <label for="message-text" class="col-form-label">Enviar mensaje</label>
+                          <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=XrX3mb6ce0aBQ5GXgpGK-6OKtmJTxNVPnNKYdKTkTmFURDVDRE80TjE5R1Y1QzlYNjg2NFQ0V1dTUy4u">Solicitud al proveedor</a>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -219,6 +216,10 @@
                 document.getElementById("correoprov").value = correo;
                 document.getElementById("observacionesprov").value = observaciones;
                 document.getElementById("identificacionprov").value = identificacion;
+            }
+            function openmodal1(correo) {
+                //$('#modal1').modal('show');
+                document.getElementById("correomodal").value = correo;
             }
         </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
