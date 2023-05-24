@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <title>Insumos</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    {% load static %}
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline"><img src="{% static 'imagenes/Melate.png' %}" width="150px"></span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item">
+                            <a href="/inicio/" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-none d-sm-inline text-light">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/ventas/" class="nav-link px-0 align-middle">
+                                <span class="ms-1 d-none d-sm-inline text-light">Ventas</span></a>
+                        </li>
+                        <li>
+                            <a href="/insumos/r" class="nav-link px-0 align-middle">
+                                <span class="ms-1 d-none d-sm-inline text-warning">Insumos</span></a>
+                        </li>
+                        <li>
+                            <a href="/productos/r" class="nav-link px-0 align-middle">
+                                <span class="ms-1 d-none d-sm-inline text-light">Productos</span> </a>
+                        </li>
+                        <li>
+                            <a href="/proveedores/" class="nav-link px-0 align-middle">
+                                <span class="ms-1 d-none d-sm-inline text-light">Proveedores</span> </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown pb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% static 'imagenes/melatechocolate-nosotros.jpg' %}" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">Administrador</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="margin: 20px; width: 1100px;">
+                {% if mensaje == 'imenor' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    - El insumo debe ser mayor a 0 -
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {% if mensaje == 'fechamenor' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    - El insumo está vencido -
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {% if alertaStock != '' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    - Se están acabando las existencias de {{alertaStock}}  -
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                <form class="row g-3" action="/registroInsumo/" method="POST">
+                    {% csrf_token %}
+                    <p class="fs-3 fw-semibold">Insumos</p>
+                    <div class="col-md-4">
+                    <label for="inputEmail4" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="inputPassword4" required>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="inputPassword4" class="form-label">Stock</label>
+                    <input type="number" min="0" class="form-control" name="stock" id="inputPassword4" required>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="inputPassword4" class="form-label">Ubicación</label>
+                    <select id="inputPassword4" class="form-select" name="ubicacion" required>
+                        <option selected>Vitrina</option>
+                        <option>Estante 1</option>
+                        <option>Estante 2</option>
+                        <option>Estante 3</option>
+                        <option>Nevera</option>
+                    </select>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="inputPassword4" class="form-label">Unidad de medida</label>
+                    <input type="text" class="form-control" name="medida" id="inputPassword4" required>
+                    </div>
+                    <div class="col-md-1">
+                    <label for="inputState" class="form-label">ㅤ</label>
+                    <select name="unidad" class="form-select" id="inputPassword4" required>
+                        <option selected>lb</option>
+                        <option>l</option>
+                        <option>gr</option>
+                        <option>oz</option>
+                    </select>
+                    </div>
+                    <div class="col-2">
+                    <label for="inputAddress" class="form-label">Precio</label>
+                    <input type="number" min="0" class="form-control" name="precio" placeholder="$" id="inputPassword4" required>
+                    </div>
+                    <div class="col-3">
+                    <label for="inputAddress2" class="form-label">Fecha de compra</label>
+                    <input type="date" class="form-control" name="compra" id="inputPassword4" required>
+                    </div>
+                    <div class="col-3">
+                    <label for="inputAddress2" class="form-label">Fecha de caducidad</label>
+                    <input type="date" class="form-control" name="vencimiento" id="inputPassword4" required>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="inputState" class="form-label">Proveedor</label>
+                    <select name="proveedor" class="form-select" id="inputPassword4" required>
+                        {% for proveedor in proveedores %}
+                        <option>{{proveedor.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="col-1">
+                        <label for="inputState" class="form-label">ㅤ</label>
+                    <button type="submit" class="btn btn-success" href="/registrarInsumo/"> Agregar</button>
+                    </div>
+                </form>
+                <br><br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Unidad de medida</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha compra</th>
+                <th scope="col">Fecha caducidad</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for insumo in insumos %}
+                <tr>
+                <td>{{insumo.nombre}}</td>
+                <td>{{insumo.stock}}</td>
+                <td>{{insumo.seccion}}</td>
+                <td>{{insumo.unidad_medida}}</td>
+                <td>{{insumo.precio_compra}}</td>
+                <td>{{insumo.fecha_ingreso}}</td>
+                <td>{{insumo.fecha_vencimiento}}</td>
+                <td>{{insumo.proveedor}}</td>
+                <td><a type="button" class="btn btn-danger" href="/eliminarInsumo/{{insumo.id}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                    </svg></a> 
+                    <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal1"
+                    onclick="return openmodal('{{ insumo.nombre }}', '{{ insumo.stock }}', '{{ insumo.seccion }}',
+                        '{{ insumo.unidad_medida }}', '{{ insumo.precio_compra }}', '{{ insumo.fecha_ingreso }}', 
+                        '{{ insumo.fecha_vencimiento }}', '{{insumo.proveedor}}' , '{{insumo.id}}')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+
+            <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Productos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/editarInsumo/" method="POST">
+                            <div class="modal-content">
+                                <div class="row">
+                                    {% csrf_token %}
+                                    <div class="col s6">
+                                        <input type="text" class="form-control" name="identificacion" id="identificacionin" required hidden>
+                                        <label for="inputEmail4" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombrein" required>
+                                    </div>
+                                    <div class="col s6">
+                                        <label for="inputPassword4" class="form-label">Stock</label>
+                                        <input type="number" min="0" class="form-control" name="stock" id="stockin" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <label for="inputPassword4" class="form-label">Ubicación</label>
+                                        <select id="ubicacionin" class="form-select" name="ubicacion" required>
+                                            <option selected>Vitrina</option>
+                                            <option>Estante 1</option>
+                                            <option>Estante 2</option>
+                                            <option>Estante 3</option>
+                                            <option>Nevera</option>
+                                        </select>
+                                    </div>
+                                    <div class="col s6">
+                                        <label for="inputPassword4" class="form-label">Unidad de medida</label>
+                                        <input type="text" class="form-control" name="medida" id="medidain" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <label for="inputAddress" class="form-label">Precio</label>
+                                        <input type="number" min="0" class="form-control" name="precio" placeholder="$" id="precioin" required>
+                                    </div>
+                                    <div class="col s6">
+                                        <label for="inputAddress2" class="form-label">Fecha de compra</label>
+                                        <input type="date" class="form-control" name="compra" id="comprain" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <label for="inputAddress2" class="form-label">Fecha de caducidad</label>
+                                        <input type="date" class="form-control" name="vencimiento" id="vencimientoin" required>
+                                    </div>
+                                    <div class="col s6">
+                                        <label for="inputState" class="form-label">Proveedor</label>
+                                        <select name="proveedor" class="form-select" id="proveedorin" required>
+                                            {% for proveedor in proveedores %}
+                                            <option>{{proveedor.nombre}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button id="submit" class="btn btn-primary">Guardar cambios</a>
+                                </div>
+                                </form>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    
+        <script>
+            function openmodal(nombre, stock, ubicacion, unidad, precio, fecha1, fecha2, proveedor, identificacion) {
+                //$('#modal1').modal('show');
+                document.getElementById("nombrein").value = nombre;
+                document.getElementById("stockin").value = stock;
+                document.getElementById("ubicacionin").value = ubicacion;
+                document.getElementById("medidain").value = unidad;
+                document.getElementById("precioin").value = precio;
+                document.getElementById("comprain").value = fecha1;
+                document.getElementById("vencimientoin").value = fecha2;
+                document.getElementById("proveedorin").value = proveedor;
+                document.getElementById("identificacionin").value = identificacion;
+            }
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+</body>
+</html>
