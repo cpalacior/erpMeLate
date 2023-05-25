@@ -186,6 +186,7 @@ def actualizarInsumo(formulario):
         return "Bad"
 
 def productos(request, mensaje):
+    insumos = Insumos.objects.all()
     productos = Productos.objects.all()
     listaProductos = productos.values()
     alertas = ""
@@ -193,7 +194,7 @@ def productos(request, mensaje):
         if int(producto["stock"]) < 3:
             alertas = alertas + producto["nombre"] + ", "
     alertas = alertas.strip(", ")
-    return render(request, 'productos.html' , {"productos": productos, "mensaje":mensaje, "alertaStock": alertas})
+    return render(request, 'productos.html' , {"productos": productos, "mensaje":mensaje, "alertaStock": alertas, "insumos":insumos})
 
 def registroProducto(request):
     formulario = request.POST.dict()
