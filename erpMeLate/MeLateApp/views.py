@@ -128,10 +128,16 @@ def registroInsumo(request):
 
 def crearInsumo(formulario):
     if int(formulario["stock"]) > 0 :
-        nuevo_insumo = Insumos(seccion = formulario["ubicacion"],nombre = formulario["nombre"] ,precio_compra = formulario["precio"] ,
+        try:
+            insumo_existente = Insumos.objects.filter(nombre = formulario["nombre"])
+            stock = insumo_existente.values()[0]
+            stock = stock["stock"]
+            insumo_existente.update(stock = str(int(formulario["stock"]) + int(stock)))
+        except:
+            nuevo_insumo = Insumos(seccion = formulario["ubicacion"],nombre = formulario["nombre"] ,precio_compra = formulario["precio"] ,
                                 stock = formulario["stock"] ,proveedor = formulario["proveedor"] ,fecha_vencimiento = formulario["vencimiento"] ,
                                 fecha_ingreso = formulario["compra"] ,unidad_medida = formulario["medida"] + " " + formulario["unidad"])
-        nuevo_insumo.save()
+            nuevo_insumo.save()
         return "Ok"
     else:
         return "Bad"

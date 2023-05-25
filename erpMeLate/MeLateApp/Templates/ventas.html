@@ -63,78 +63,78 @@
                 </div>
             </div>
             <div class="container" style="margin: 20px; width: 1100px;">
-                <form class="col" action="/registroVenta/" method="POST">
-                    {% csrf_token %}
-                    <p class="fs-3 fw-semibold">Ventas</p>
-                    <div class="col-md-4">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                <th scope="col">Producto</th>
-                                <th scope="col">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                {% for producto in productos %}
-                                <tr>
-                                    <td scope="col">
-                                        <input type="checkbox" id="scales" name="{{producto.nombre}}">
-                                        <label for="scales">{{producto.nombre}}</label>
-                                    </td>
-                                    <td scope="col">
-                                        <input type="number" value="0" max="{{producto.stock}}" class="form-control" name="cantidad{{producto.nombre}}">
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                            </table>
-                    </div>
-                    <!--<div class="col-md-4">
-                    <label for="inputPassword4" class="form-label">Precio</label>
-                    <input type="number" id="precioid" value="0" class="form-control" name="precio" placeholder="$" onKeyUp="calcular(this);">
-                    </div>
-                    <div class="col-md-4">
-                    <label for="inputPassword4" class="form-label">Cantidad</label>
-                    <input type="number" id="cantidadid" value="0" class="form-control" name="cantidad" onKeyUp="calcular(this);">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputPassword4" class="form-label">Total</label>
-                        <input type="number" id="totalid" class="form-control" name="total" placeholder="$">
-                        </div>-->
-                    <div class="col-2">
-                        <label for="inputState" class="form-label">ㅤ   </label><br>
-                    <button type="submit" class="btn btn-success"> Agregar</button>
-                    </div>
-                </form>
+                <table class="table" >
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <td scope="col">
+                                <form class="col" action="/registroVenta/" method="POST" style="width: 450px; ">
+                                    {% csrf_token %}
+                                    <p class="fs-3 fw-semibold">Ventas</p>
+                                    <div class="col-md-4">
+                                        <table class="table" style="width: 440px; margin: 5px;">
+                                            <thead>
+                                                <tr>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col">Cantidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-group-divider">
+                                                {% for producto in productos %}
+                                                <tr>
+                                                    <td scope="col">
+                                                        <input type="checkbox" id="scales" name="{{producto.nombre}}">
+                                                        <label for="scales">{{producto.nombre}}</label>
+                                                    </td>
+                                                    <td scope="col">
+                                                        <input type="number" value="0" min="0" max="{{producto.stock}}" class="form-control" name="cantidad{{producto.nombre}}">
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            </table>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="inputState" class="form-label">ㅤ   </label><br>
+                                    <button type="submit" class="btn btn-success"> Agregar</button>
+                                    </div>
+                                </form>
+                            </td>
+                            <td scope="col">
+                                <p class="fs-3 fw-semibold">ㅤ </p>
+                                <div class="col">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-group-divider">
+                                            {% for venta in ventas %}
+                                            <tr>
+                                                    <td>{{venta.productos}}</td>
+                                                    <td>{{venta.cantidad}}</td>
+                                                    <td>{{venta.total}}</td>
+                                                    <td><a type="button" class="btn btn-danger" href="/eliminarVenta/{{venta.id}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                                        </svg></a> 
+                                                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal1"
+                                                        onclick="return openmodal('{{ venta.id }}','{{ producto.nombre }}', '{{ producto.precio_venta }}', '{{venta.cantidad}}')">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                                        </svg></a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        </table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
 
                 <br><br>
-        <div class="col">
-        <table class="table">
-            <thead>
-                <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Total</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                {% for venta in ventas %}
-                <tr>
-                        <td>{{venta.productos}}</td>
-                        <td>{{venta.cantidad}}</td>
-                        <td>{{venta.total}}</td>
-                        <td><a type="button" class="btn btn-danger" href="/eliminarVenta/{{venta.id}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
-                            </svg></a> 
-                            <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal1"
-                            onclick="return openmodal('{{ venta.id }}','{{ producto.nombre }}', '{{ producto.precio_venta }}', '{{venta.cantidad}}')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                            </svg></a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            </table>
         </div>
 
             <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -211,3 +211,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<!--<div class="col-md-4">
+                    <label for="inputPassword4" class="form-label">Precio</label>
+                    <input type="number" id="precioid" value="0" class="form-control" name="precio" placeholder="$" onKeyUp="calcular(this);">
+                    </div>
+                    <div class="col-md-4">
+                    <label for="inputPassword4" class="form-label">Cantidad</label>
+                    <input type="number" id="cantidadid" value="0" class="form-control" name="cantidad" onKeyUp="calcular(this);">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="inputPassword4" class="form-label">Total</label>
+                        <input type="number" id="totalid" class="form-control" name="total" placeholder="$">
+                        </div>-->
